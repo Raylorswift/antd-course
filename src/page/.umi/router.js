@@ -18,6 +18,11 @@ const routes = [
     exact: true,
   },
   {
+    path: '/test01',
+    component: require('../ControlItem').default,
+    exact: true,
+  },
+  {
     component: () =>
       React.createElement(
         require('/Users/raylorren/Documents/练习/antd-course/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
