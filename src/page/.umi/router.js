@@ -8,19 +8,62 @@ import {
 import dynamic from 'umi/dynamic';
 import renderRoutes from 'umi/lib/renderRoutes';
 import history from '@@/history';
+import { routerRedux } from 'dva';
 
-const Router = DefaultRouter;
+const Router = routerRedux.ConnectedRouter;
 
 const routes = [
   {
     path: '/',
-    component: require('../HelloWorld').default,
-    exact: true,
-  },
-  {
-    path: '/test01',
-    component: require('../ControlItem').default,
-    exact: true,
+    component: require('../../layout').default,
+    routes: [
+      {
+        path: '/puzzlecards',
+        component: require('../puzzlecards').default,
+        exact: true,
+      },
+      {
+        path: '/helloworld',
+        component: require('../HelloWorld').default,
+        exact: true,
+      },
+      {
+        path: '/dashboard',
+        routes: [
+          {
+            path: '/dashboard/analysis',
+            component: require('../Dashboard/Analysis').default,
+            exact: true,
+          },
+          {
+            path: '/dashboard/monitor',
+            component: require('../Dashboard/Monitor').default,
+            exact: true,
+          },
+          {
+            path: '/dashboard/workplace',
+            component: require('../Dashboard/Workplace').default,
+            exact: true,
+          },
+          {
+            component: () =>
+              React.createElement(
+                require('/Users/raylorren/Documents/练习/antd-course/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+                  .default,
+                { pagesPath: 'src/page', hasRoutesInConfig: true },
+              ),
+          },
+        ],
+      },
+      {
+        component: () =>
+          React.createElement(
+            require('/Users/raylorren/Documents/练习/antd-course/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+              .default,
+            { pagesPath: 'src/page', hasRoutesInConfig: true },
+          ),
+      },
+    ],
   },
   {
     component: () =>
