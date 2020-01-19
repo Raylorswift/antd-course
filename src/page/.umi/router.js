@@ -23,6 +23,11 @@ const routes = [
         exact: true,
       },
       {
+        path: '/List',
+        component: require('../list').default,
+        exact: true,
+      },
+      {
         path: '/helloworld',
         component: require('../HelloWorld').default,
         exact: true,

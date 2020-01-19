@@ -8,6 +8,7 @@ import { connect } from 'dva';
 const namespace = 'puzzlecards';
 
 const mapStateToProps = (state) => {
+    // 第四步：reducers操作后，返回新的state对象，并触发页面的重新渲染
     const cardList = state[namespace].data;
     return {
         cardList,
@@ -16,15 +17,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClickAdd: (newCard) => {
-            const action = {
-                type: `${namespace}/addNewCard`,
-                payload: newCard,
-            };
-            dispatch(action);
-        }
-    }
-}
+        // onClickAdd: (newCard) => {
+        //     const action = {
+        //         type: `${namespace}/addNewCard`,
+        //         payload: newCard,
+        //     };
+        //     dispatch(action);
+        // }
+        
+        onDidMount: () => {
+            dispatch({
+                type: `${namespace}/queryInitCards`,
+            });
+        },
+    };
+};
 
 @connect(mapStateToProps, mapDispatchToProps)
 
@@ -64,6 +71,10 @@ export default class PuzzleCardspage extends Component {
     //     });
     // }
 
+    componentDidMount() {
+        this.props.onDidMount();
+    }
+
     render () {
         return (
             <div>
@@ -80,12 +91,13 @@ export default class PuzzleCardspage extends Component {
                 {/* <div>
                     <Button type="primary" onClick={this.addNewCard}>添加卡片</Button>
                 </div> */}
-                <div>
+                {/* 第一步：页面事件触发dispatch（action） */}
+                {/* <div>
                     <Button onClick={() => this.props.onClickAdd({
                         setup: 'Which song is your favorite ?',
                         punchline: 'style is my favorite songs of the 1989 album from taylor.'
                     })}>添加卡片</Button>
-                </div>
+                </div> */}
             </div>
         );
     }

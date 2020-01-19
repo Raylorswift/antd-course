@@ -16,7 +16,8 @@ export default {
             path: '/',
             component: '../layout',
             routes: [
-                { path: 'puzzlecards', component: './puzzlecards' },
+                { path: 'puzzlecards', component: './puzzlecards' }, // dva model (mapStateToProps, mapDispatchToProps)
+                { path: 'List', component: '../page/list' },
                 {
                     path: '/helloworld',
                     component: './HelloWorld',
@@ -32,4 +33,12 @@ export default {
             ],
         },
     ],
+
+    // 反向代理
+    proxy: {
+        'dev': {
+            target: 'https://08ad1pao69.execute-api.us-east-1.amazonaws.com',
+            changeOrigin: true,
+        },
+    },
 };
